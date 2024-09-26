@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_sanataba_go_pipeline_sample_1727337828519-push-trigger-input-set
+  identifier: Build_sanataba_go_pipeline_sample_1727337828519pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_sanataba_go_pipeline_sample_1727337828519
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
