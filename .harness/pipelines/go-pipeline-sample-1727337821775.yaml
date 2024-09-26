@@ -1,5 +1,5 @@
 pipeline:
-  name: Build go-pipeline-sample
+  name: Build go-pipeline-sample_scratch
   identifier: Build_sanataba_go_pipeline_sample_1727337828519
   projectIdentifier: default_project
   orgIdentifier: default
@@ -31,3 +31,4 @@ pipeline:
         connectorRef: account.Github_OAuth_1727336508347
         repoName: sanataba/go-pipeline-sample
         build: <+input>
+  tags: {}
