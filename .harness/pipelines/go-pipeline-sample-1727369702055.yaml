@@ -14,20 +14,55 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Echo Welcome Message
+                  name: run unit tests
                   identifier: Echo_Welcome_Message
                   spec:
+                    connectorRef: <+input>
+                    image: golang:1.15
                     shell: Sh
-                    command: echo "Welcome to Harness CI"
+                    command: |-
+                      set +e
+                      go get gotest.tools/gotestsum
+                      gotestsum --format=standard-verbose --junitfile unit-tests.xml
+                      exit 0
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "*.xml"
+              - step:
+                  type: Run
+                  name: build app
+                  identifier: build_app
+                  spec:
+                    connectorRef: <+input>
+                    image: golang:1.15
+                    shell: Sh
+                    command: |-
+                      set +e
+                      go get gotest.tools/gotestsum
+                      CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo
+                      exit 0
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: build and push image to docker
+                  identifier: build_and_push_image_to_docker
+                  spec:
+                    connectorRef: <+input>
+                    repo: <+input>
+                    tags:
+                      - latest
           platform:
             os: Linux
             arch: Amd64
           runtime:
             type: Cloud
             spec: {}
+        description: ""
   properties:
     ci:
       codebase:
         connectorRef: account.Github_OAuth_1727336508347
         repoName: sanataba/go-pipeline-sample
         build: <+input>
+        sparseCheckout: []
