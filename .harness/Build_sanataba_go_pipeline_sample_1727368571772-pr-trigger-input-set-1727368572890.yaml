@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_sanataba_go_pipeline_sample_1727368571772-pr-trigger-input-set
+  identifier: Build_sanataba_go_pipeline_sample_1727368571772prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_sanataba_go_pipeline_sample_1727368571772
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
